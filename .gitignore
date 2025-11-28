@@ -1,0 +1,31 @@
+# node
+node_modules/
+dist/
+build/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.local
+
+# editor / OS
+.vscode/
+.DS_Store
+.idea/
+
+# test coverage
+coverage/
+
+# jest cache
+.jest/
+
+# optional per-subproject builds
+apps/*/dist/
+apps/*/build/
+packages/*/dist/
+packages/*/build/
