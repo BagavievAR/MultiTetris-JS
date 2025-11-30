@@ -6,13 +6,13 @@ import Layout from './components/layout/Layout'
 import About from './pages/About/About'
 import Help from './pages/Help/Help'
 import Home from './pages/Home/Home'
-import Invite from './pages/Invite/Invite' // Создай заглушку
+import Invite from './pages/Invite/Invite'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
 import Lobby from './pages/Lobby/Lobby'
-import BattleRoyale from './pages/Multiplayer/BattleRoyale' // Создай заглушку
+import BattleRoyale from './pages/Multiplayer/BattleRoyale'
 import Multiplayer from './pages/Multiplayer/Multiplayer'
-import ScoreBattle from './pages/Multiplayer/ScoreBattle' // Создай заглушку
-import NotFound from './pages/NotFound' // Создай компонент-заглушку
+import ScoreBattle from './pages/Multiplayer/ScoreBattle'
+import NotFound from './pages/NotFound'
 import Profile from './pages/Profile/Profile'
 import Room from './pages/Room/Room'
 import Solo from './pages/Solo/Solo'
@@ -38,6 +38,7 @@ const App: React.FC = () => {
         <Route path="support" element={<Support />} />
         <Route path="help" element={<Help />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/room/:mode/:id/lobby" element={<Lobby />} />
       </Route>
     </Routes>
   )
