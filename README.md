@@ -52,7 +52,7 @@ npm run test:coverage
 
 Режим игры против себя на время и очки.
 
-![solo](./images/solo.jpg)
+![solo](./images/Solo.jpg)
 
 ### /multiplayer - страница выбора мультиплеерного режима
 
