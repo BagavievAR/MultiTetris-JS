@@ -10,13 +10,7 @@ jest.mock("uuid", () => ({
 describe("App routing", () => {
   it("renders the Home page at root path", () => {
     render(
-      <MemoryRouter
-        initialEntries={["/"]}
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
+      <MemoryRouter initialEntries={["/"]}>
         <App />
       </MemoryRouter>
     )
@@ -31,13 +25,7 @@ describe("App routing", () => {
 
   it("renders the NotFound page for unknown routes", () => {
     render(
-      <MemoryRouter
-        initialEntries={["/unknown"]}
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
+      <MemoryRouter initialEntries={["/unknown"]}>
         <App />
       </MemoryRouter>
     )

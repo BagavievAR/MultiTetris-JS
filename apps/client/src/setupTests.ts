@@ -1,7 +1,12 @@
-import '@testing-library/jest-dom'
+import { TextDecoder as NodeTextDecoder, TextEncoder as NodeTextEncoder } from "util"
 
-import { cleanup } from '@testing-library/react'
+import "@testing-library/jest-dom"
 
-afterEach(() => {
-  cleanup()
-})
+if (typeof globalThis.TextEncoder === "undefined") {
+  globalThis.TextEncoder = NodeTextEncoder
+}
+
+if (typeof globalThis.TextDecoder === "undefined") {
+  // @ts-expect-error: Node TextDecoder is compatible for Jest environment
+  globalThis.TextDecoder = NodeTextDecoder
+}
