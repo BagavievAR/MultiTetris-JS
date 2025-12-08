@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  background-color: #222;
+  padding: 1rem;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

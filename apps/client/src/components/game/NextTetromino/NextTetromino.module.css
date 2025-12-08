@@ -1,0 +1,61 @@
+.container {
+  display: inline-block;
+  padding: 8px;
+  border: 2px solid #555;
+  background: #111;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  background: #1f1f1f;
+}
+
+.placeholder {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.cell[data-color="0"] {
+  background: #1f1f1f;
+}
+
+/* I */
+.cell[data-color="1"] {
+  background: #4ecdc4;
+}
+
+/* J */
+.cell[data-color="2"] {
+  background: #3498db;
+}
+
+/* L */
+.cell[data-color="3"] {
+  background: #e67e22;
+}
+
+/* O */
+.cell[data-color="4"] {
+  background: #f1c40f;
+}
+
+/* S */
+.cell[data-color="5"] {
+  background: #2ecc71;
+}
+
+/* T */
+.cell[data-color="6"] {
+  background: #9b59b6;
+}
+
+/* Z */
+.cell[data-color="7"] {
+  background: #e74c3c;
+}
