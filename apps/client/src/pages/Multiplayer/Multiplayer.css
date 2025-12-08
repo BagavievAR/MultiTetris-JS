@@ -1,0 +1,25 @@
+.multiplayer-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.mode-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.mode-button:hover {
+  background-color: #357ac9;
+}
