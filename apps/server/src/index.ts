@@ -1,8 +1,12 @@
 import crypto from 'crypto'
+import http from 'http'
 
 import cors from 'cors'
 import express from 'express'
+import { Server as SocketIOServer } from 'socket.io'
 import sqlite3 from 'sqlite3'
+
+import { registerRoomSockets } from './sockets/rooms.js'
 
 const app = express()
 
@@ -13,6 +17,17 @@ app.use(
   }),
 )
 app.use(express.json())
+
+const httpServer = http.createServer(app)
+
+const io = new SocketIOServer(httpServer, {
+  cors: {
+    origin: 'http://localhost:5173',
+    credentials: true,
+  },
+})
+
+registerRoomSockets(io)
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3000
 const JWT_SECRET = process.env.JWT_SECRET ?? 'dev-secret-change-me'
@@ -66,6 +81,13 @@ interface SoloResultRow {
   lines_cleared: number
   level: number
   created_at: string
+}
+
+interface LeaderboardRow {
+  user_id: string
+  login: string
+  best_score: number
+  games_count: number
 }
 
 const initializeDatabase = async (): Promise<void> => {
@@ -395,15 +417,51 @@ app.get('/api/solo/results/me', async (req, res) => {
   }
 })
 
+app.get('/api/leaderboard/solo', async (req, res) => {
+  try {
+    const limitParam = req.query.limit
+    const limit =
+      typeof limitParam === 'string' ? Number.parseInt(limitParam, 10) || 10 : 10
+
+    const rows = await all<LeaderboardRow>(
+      `
+      SELECT
+        u.id          AS user_id,
+        u.login       AS login,
+        MAX(s.score)  AS best_score,
+        COUNT(s.id)   AS games_count
+      FROM users u
+      JOIN solo_results s ON s.user_id = u.id
+      GROUP BY u.id, u.login
+      ORDER BY best_score DESC, games_count DESC, login ASC
+      LIMIT ?
+    `,
+      [limit],
+    )
+
+    res.json(
+      rows.map((r) => ({
+        userId: r.user_id,
+        login: r.login,
+        bestScore: r.best_score,
+        gamesCount: r.games_count,
+      })),
+    )
+  } catch (error) {
+    console.error('Ошибка GET /api/leaderboard/solo', error)
+    res.status(500).json({ message: 'Ошибка сервера при получении лидерборда' })
+  }
+})
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
 void initializeDatabase()
   .then(() => {
-    app.listen(PORT, () => {
+    httpServer.listen(PORT, () => {
       console.log(`Server listening on http://localhost:${PORT}`)
-    })
+    }) 
   })
   .catch((error) => {
     console.error('Ошибка инициализации БД', error)
