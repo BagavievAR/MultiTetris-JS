@@ -354,6 +354,31 @@ export const registerRoomSockets = (io: Server) => {
       ack?.({ ok: true })
     })
 
+    socket.on(
+      'game:state',
+      (
+        payload: { roomId: string; board: number[][]; score: number; lines: number; level: number },
+        ack,
+      ) => {
+        const id = String(payload.roomId ?? '').trim()
+        const room = rooms.get(id)
+
+        if (!room || room.status !== 'playing') return ack?.({ ok: false, message: 'Комната не в игре' })
+
+        socket.to(id).emit('game:state', {
+          roomId: id,
+          from: { userId: null, login: '' },
+          board: payload.board,
+          score: payload.score,
+          lines: payload.lines,
+          level: payload.level,
+          ts: Date.now(),
+        })
+
+        ack?.({ ok: true })
+      },
+    )
+
     socket.on('room:getState', ({ roomId }: { roomId: string }, ack) => {
       const id = String(roomId ?? '').trim()
       const room = rooms.get(id)

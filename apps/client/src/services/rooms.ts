@@ -35,6 +35,38 @@ export type RoomListItem = {
   createdAt: number
 }
 
+export type GameStatePayload = {
+  roomId: string
+  board: number[][]
+  score: number
+  lines: number
+  level: number
+  ts: number
+}
+
+export const onGameState = (cb: (p: GameStatePayload) => void) => {
+  socket.on('game:state', cb)
+
+  return () => socket.off('game:state', cb)
+}
+
+export const sendGameState = (
+  roomId: string,
+  data: { board: number[][]; score: number; lines: number; level: number },
+) =>
+  new Promise<void>((resolve) => {
+    const id = roomId.trim()
+
+    if (!id) return resolve()
+      
+    try {
+      ensureConnected()
+      socket.emit('game:state', { roomId: id, ...data }, () => resolve())
+    } catch {
+      resolve()
+    }
+  })
+
 type AckOk<T> = { ok: true } & T
 type AckFail = { ok: false; message?: string }
 type Ack<T> = AckOk<T> | AckFail

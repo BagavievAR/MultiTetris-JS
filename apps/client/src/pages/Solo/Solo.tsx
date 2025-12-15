@@ -9,11 +9,24 @@ import { saveSoloResult } from '../../services/soloResults'
 
 import './Solo.css'
 
-type SoloProps = {
-  title?: string | null
+type SoloStateSnapshot = {
+  board: number[][]
+  current: unknown
+  next: unknown
+  score: number
+  level: number
+  linesCleared: number
+  isGameOver: boolean
+  isRunning: boolean
+  isPaused: boolean
 }
 
-export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
+type SoloProps = {
+  title?: string | null
+  onState?: (s: SoloStateSnapshot) => void
+}
+
+export default function Solo({ title = 'Solo Tetris', onState }: SoloProps) {
   const {
     board,
     current,
@@ -34,14 +47,12 @@ export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
   } = useSoloGame()
 
   const { token, user } = useAuth()
-
   const isResultSavedRef = useRef(false)
 
+  // Управление с клавиатуры
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isRunning || isGameOver) {
-        return
-      }
+      if (!isRunning || isGameOver) return
 
       switch (event.code) {
       case 'ArrowLeft':
@@ -76,9 +87,7 @@ export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
 
     window.addEventListener('keydown', handleKeyDown)
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isRunning, isGameOver, moveLeft, moveRight, softDrop, hardDrop, rotate, togglePause])
 
   useEffect(() => {
@@ -102,12 +111,28 @@ export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
     }
   }, [isGameOver, score, level, linesCleared, token])
 
+  useEffect(() => {
+    if (!onState) return
+
+    onState({
+      board,
+      current,
+      next,
+      score,
+      level,
+      linesCleared,
+      isGameOver,
+      isRunning,
+      isPaused,
+    })
+  }, [onState, board, current, next, score, level, linesCleared, isGameOver, isRunning, isPaused])
+
   const displayGrid = projectCurrentPiece(board, current)
 
   return (
     <div className="app">
       <div>
-        <h1>{title ? <h1>{title}</h1> : null}</h1>
+        {title ? <h1>{title}</h1> : null}
         <Glass grid={displayGrid} />
       </div>
 
@@ -145,9 +170,7 @@ export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
           <div className="game-over">
             <p>Игра окончена</p>
             {user && (
-              <p className="game-over__saved">
-                Результат сохранён в профиль игрока {user.login}
-              </p>
+              <p className="game-over__saved">Результат сохранён в профиль игрока {user.login}</p>
             )}
             <button type="button" onClick={startNewGame}>
               Сыграть ещё раз
