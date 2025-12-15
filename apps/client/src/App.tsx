@@ -5,6 +5,8 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import { AuthProvider } from './contexts/AuthContext'
 import About from './pages/About/About'
+import BattleRoyaleGame from './pages/Game/BattleRoyaleGame'
+import ScoreBattleGame from './pages/Game/ScoreBattleGame'
 import Help from './pages/Help/Help'
 import Home from './pages/Home/Home'
 import Invite from './pages/Invite/Invite'
@@ -36,8 +38,10 @@ const App: FC = () => {
           <Route path="room/:mode/:id" element={<Room />} />
           <Route path="room/:mode/:id/lobby" element={<Lobby />} />
 
+          <Route path="room/score/:id/play" element={<ScoreBattleGame />} />
+          <Route path="room/royale/:id/play" element={<BattleRoyaleGame />} />
+
           <Route path="invite/:token" element={<Invite />} />
-          <Route path="lobby" element={<Lobby />} />
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

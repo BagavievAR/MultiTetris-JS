@@ -9,7 +9,11 @@ import { saveSoloResult } from '../../services/soloResults'
 
 import './Solo.css'
 
-export default function Solo() {
+type SoloProps = {
+  title?: string | null
+}
+
+export default function Solo({ title = 'Solo Tetris' }: SoloProps) {
   const {
     board,
     current,
@@ -103,7 +107,7 @@ export default function Solo() {
   return (
     <div className="app">
       <div>
-        <h1>Solo Tetris</h1>
+        <h1>{title ? <h1>{title}</h1> : null}</h1>
         <Glass grid={displayGrid} />
       </div>
 
