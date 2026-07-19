@@ -1,0 +1,101 @@
+.multiplayer-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.mode-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.mode-button:hover {
+  background-color: #357ac9;
+}
+
+.mp-page { padding: 40px 0; }
+.mp-card {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  border-radius: 16px;
+  background: #0f172a;
+  box-shadow: 0 18px 45px rgba(0,0,0,.5);
+  color: #e5e7eb;
+}
+.mp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+.mp-block {
+  border-radius: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,.03);
+}
+.mp-row { display: flex; gap: 10px; align-items: center; }
+.mp-row--space { justify-content: space-between; }
+.mp-label { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; font-size: 14px; }
+.mp-block input, .mp-block select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(148,163,184,.45);
+  background: #020617;
+  color: #e5e7eb;
+}
+.mp-block button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg,#3b82f6,#1d4ed8);
+  color: #f9fafb;
+}
+.mp-block button:disabled { opacity: .6; cursor: default; }
+.mp-hint { margin-top: 10px; font-size: 13px; opacity: .8; }
+.mp-error {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(239,68,68,.18);
+  color: #fecaca;
+}
+.mp-table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.mp-table th, .mp-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(148,163,184,.25);
+  text-align: left;
+}
+.mp-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(34,197,94,.18);
+  color: #bbf7d0;
+}
+.mp-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size: 12px;
+  opacity: .9;
+}
+@media (max-width: 900px) {
+  .mp-grid { grid-template-columns: 1fr; }
+}
+

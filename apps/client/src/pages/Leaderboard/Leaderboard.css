@@ -1,0 +1,61 @@
+.leaderboard-page {
+  padding: 40px 0;
+}
+
+.leaderboard-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 28px 32px 32px;
+  border-radius: 16px;
+  background: #0f172a;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+  color: #e5e7eb;
+}
+
+.leaderboard-card h1 {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+.lb-error {
+  margin-top: 8px;
+  color: #fecaca;
+}
+
+.leaderboard-table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+  text-align: left;
+}
+
+.leaderboard-table th {
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.leaderboard-row--me {
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.leaderboard-row--me td {
+  border-bottom-color: rgba(34, 197, 94, 0.5);
+}
+
+.lb-badge-me {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.2);
+  color: #bbf7d0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
